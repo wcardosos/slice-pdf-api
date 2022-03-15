@@ -1,9 +1,12 @@
 from datetime import datetime
-from termcolor import colored
 from typing import Any, Callable
+from termcolor import colored
 
 
 def log_message_decorator(log_method: Callable) -> str:
+    '''
+        Log message decorator to avoid code duplicated.
+    '''
     def compose_log_message(ref: Any, message: str):
         now = Logger.get_now()
         log_message = f'{now} [{ref.service}] - {message}'
@@ -11,6 +14,7 @@ def log_message_decorator(log_method: Callable) -> str:
         return log_method(ref, log_message)
 
     return compose_log_message
+
 
 class Logger:
     '''
@@ -25,13 +29,13 @@ class Logger:
             Return the actual timestamp.
         '''
         return str(datetime.now())
-    
 
     @log_message_decorator
     def info(self, message: str) -> None:
         '''
             Logs a info.
         '''
+        # pylint: disable=no-self-use
         print(colored(message, 'white'))
 
     @log_message_decorator
@@ -39,6 +43,7 @@ class Logger:
         '''
             Logs a warning.
         '''
+        # pylint: disable=no-self-use
         print(colored(message, 'yellow'))
 
     @log_message_decorator
@@ -46,4 +51,5 @@ class Logger:
         '''
             Logs a error.
         '''
+        # pylint: disable=no-self-use
         print(colored(message, 'red'))

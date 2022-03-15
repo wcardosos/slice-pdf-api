@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from os.path import exists as file_exists
 from pdf2image import convert_from_path
 from src.errors.pdf.pdf_file_not_found_exception import (
