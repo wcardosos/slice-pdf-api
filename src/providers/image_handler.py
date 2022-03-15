@@ -4,8 +4,6 @@ from PIL.Image import Image
 class ImageHandler:
     '''
         Class to handle images.
-        This class has the wand package dependency and is need to install
-        the libmagickwand-dev package on host.
     '''
     
     def crop(
