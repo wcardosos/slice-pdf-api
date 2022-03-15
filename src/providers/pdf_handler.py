@@ -24,19 +24,22 @@ class PDFHandler:
         filename_list = []
 
         for index, page in enumerate(pages):
-            filename = f'page{index + 1}.jpg' 
+            filename = f'page{index + 1}.jpg'
             page.save(filename, 'JPEG')
             filename_list.append(filename)
-        
+
         return filename_list
-    
+
     @staticmethod
     def create_from_images(images_list: list, filename: str) -> None:
+        '''
+            Create a PDF file from a image list.
+        '''
         pdf = FPDF()
 
         for image in images_list:
             pdf.add_page()
             pdf.image(image, 0, 0, pdf.w, pdf.h)
-        
+
         pdf.output(filename, 'F')
         pdf.close()
