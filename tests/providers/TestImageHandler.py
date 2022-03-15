@@ -13,10 +13,7 @@ class TestImageHandler(TestCase):
         image_mock.crop.return_value = image_cropped_mock
 
         image_handler.crop(
-            1,
-            1,
-            1,
-            1,
+            (1, 1, 1, 1),
             'new file',
             image_mock
         )
@@ -31,18 +28,12 @@ class TestImageHandler(TestCase):
         image_handler.crop = MagicMock()
 
         expected_first_call_args = (
-            0,
-            0,
-            500,
-            1000,
+            (0, 0, 500, 1000),
             'test 1',
             image_mock
         ),
         expected_second_call_args = (
-            500,
-            0,
-            1000,
-            1000,
+            (500, 0, 1000, 1000),
             'test 2',
             image_mock
         ),
