@@ -1,2 +1,3 @@
 [MESSAGES CONTROL]
-disable=C0114,R0903
+disable=C0114,R0903,E0401
+ignore=__pycache__/,tests/,venv/

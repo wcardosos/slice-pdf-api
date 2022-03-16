@@ -19,7 +19,9 @@ pydantic==1.9.0
 pyflakes==2.4.0
 pylint==2.12.2
 python-dotenv==0.19.2
+python-multipart==0.0.5
 PyYAML==6.0
+six==1.16.0
 sniffio==1.2.0
 starlette==0.17.1
 termcolor==1.1.0
