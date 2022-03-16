@@ -1,5 +1,5 @@
-import json
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
+from controllers.health_check import HealthCheckController
 
 
 app = FastAPI()
@@ -10,4 +10,4 @@ def health_check():
     '''
         Health check endpoint
     '''
-    return Response(content=json.dumps({}))
+    return HealthCheckController.get()
