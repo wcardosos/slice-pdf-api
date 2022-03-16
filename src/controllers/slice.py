@@ -10,10 +10,6 @@ from src.providers.pdf_handler import PDFHandler
 from src.providers.random_generator import RandomGenerator
 
 
-HOME_FOLDER = os.getenv('HOME')
-PROCESSING_FOLDER = f'{HOME_FOLDER}/.slicepdf'
-
-
 class SliceController:
     '''
         Slice PDF files controller.
@@ -25,6 +21,9 @@ class SliceController:
             original pages halved.
         '''
         # pylint: disable=line-too-long
+        HOME_FOLDER = os.getenv('HOME')
+        PROCESSING_FOLDER = f'{HOME_FOLDER}/.slicepdf'
+        
         if not os.path.exists(PROCESSING_FOLDER):
             os.mkdir(PROCESSING_FOLDER)
 
