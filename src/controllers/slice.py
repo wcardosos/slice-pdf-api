@@ -20,12 +20,12 @@ class SliceController:
             Slice PDF uploaded file and return a new PDF file with
             original pages halved.
         '''
-        # pylint: disable=line-too-long
-        HOME_FOLDER = os.getenv('HOME')
-        PROCESSING_FOLDER = f'{HOME_FOLDER}/.slicepdf'
-        
-        if not os.path.exists(PROCESSING_FOLDER):
-            os.mkdir(PROCESSING_FOLDER)
+        # pylint: disable=line-too-long,too-many-locals
+        home_folder = os.getenv('HOME')
+        processing_folder = f'{home_folder}/.slicepdf'
+
+        if not os.path.exists(processing_folder):
+            os.mkdir(processing_folder)
 
         pdf_handler = PDFHandler()
         image_handler = ImageHandler()
@@ -47,8 +47,8 @@ class SliceController:
             for extracted_image in extracted_images:
                 logger.info(f'Image to halve: {extracted_image}')
                 with Image.open(extracted_image) as image:
-                    first_half_filename = f'{PROCESSING_FOLDER}/{RandomGenerator.generate_str()}.jpg'  # noqa: E501
-                    second_half_filename = f'{PROCESSING_FOLDER}/{RandomGenerator.generate_str()}.jpg'  # noqa: E501
+                    first_half_filename = f'{processing_folder}/{RandomGenerator.generate_str()}.jpg'  # noqa: E501
+                    second_half_filename = f'{processing_folder}/{RandomGenerator.generate_str()}.jpg'  # noqa: E501
                     logger.info('Halving image')
                     image_handler.halve(
                         image,
@@ -61,7 +61,7 @@ class SliceController:
             logger.info('Images halved successfully')
 
             logger.info('Starting to create the new PDF file')
-            new_pdf_filename = f'{PROCESSING_FOLDER}/SLICE-PDF {pdf_file.filename}'  # noqa: E501
+            new_pdf_filename = f'{processing_folder}/SLICE-PDF {pdf_file.filename}'  # noqa: E501
             logger.info(f'New PDF filename: {new_pdf_filename}')
             logger.info('Creating PDF file ...')
             pdf_handler.create_from_images(halved_images, new_pdf_filename)
