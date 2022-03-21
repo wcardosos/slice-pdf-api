@@ -75,7 +75,12 @@ class SliceController:
 
             logger.warn('Processing ended')
 
-            return FileResponse(new_pdf_filename)
+            return FileResponse(
+                new_pdf_filename,
+                headers={
+                    'Access-Control-Allow-Origin': '*'
+                }
+            )
         except Exception as error:  # pylint: disable=(broad-except)
             message = f'An error occurred: {str(error)}'
             logger.error(message)
