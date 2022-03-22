@@ -16,7 +16,7 @@ class BaseFirestoreRepository(ABC):
         Abstract class to automated Firebase apps assignment.
     '''
     def __init__(self):
-        if not firebase_apps:
+        if not firebase_apps.get('[DEFAULT]'):
             cred = credentials.Certificate(FIREBASE_CREDENTIALS_FILEPATH)
             self.app = initialize_app(cred)
         else:

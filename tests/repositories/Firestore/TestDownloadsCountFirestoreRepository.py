@@ -7,7 +7,7 @@ from tests.__mocks__.firestore_client_mock import FirestoreClientMock
 
 class TestDownloadsCountFirestoreRepository(TestCase):
     def test_should_create_new_firebase_app_and_set_firestore_client(self):
-        with patch.dict('src.repositories.Firestore.base_firestore_repository.firebase_apps', {}) as firebase_apps_mock:
+        with patch.dict('src.repositories.Firestore.base_firestore_repository.firebase_apps', { '[DEFAULT]': None }) as firebase_apps_mock:
             with patch('src.repositories.Firestore.base_firestore_repository.credentials.Certificate') as credentials_certificate_mock:
                 with patch('src.repositories.Firestore.base_firestore_repository.initialize_app') as initialize_app_mock:
                     with patch('src.repositories.Firestore.base_firestore_repository.firestore.client') as firestore_client_mock:
