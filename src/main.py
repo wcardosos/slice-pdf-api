@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile
+from src.controllers.downloads import DownloadsController
 from src.controllers.health_check import HealthCheckController
 from src.controllers.slice import SliceController
 
@@ -13,6 +14,12 @@ async def slice_pdf(pdf_file: UploadFile):
     '''
     return await SliceController.post(pdf_file)
 
+@app.get('/downloads')
+def get_downloads_count():
+    '''
+        Get downloads count
+    '''
+    return DownloadsController.get()
 
 @app.get('/health-check')
 def health_check():
