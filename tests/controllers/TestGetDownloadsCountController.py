@@ -9,8 +9,10 @@ from src.repositories.Firestore.downloads_count_firestore_repository import Down
 class TestGetDownloadsCountController(TestCase):
     def test_should_get_downloads_count(self):
         with patch('src.controllers.downloads.Response') as response_mock:
-            with patch.object(DownloadsCountFirestoreRepository, 'get') as get_downloads_count_mock:
-                get_downloads_count_mock.return_value = 1
+            with patch('src.controllers.downloads.DownloadsCountFirestoreRepository') as downloads_count_class_mock:
+                downloads_count_mock = MagicMock()
+                downloads_count_mock.get.return_value = 1
+                downloads_count_class_mock.return_value = downloads_count_mock
 
                 DownloadsController.get()
 
@@ -21,8 +23,8 @@ class TestGetDownloadsCountController(TestCase):
 
     def test_should_return_error_message_when_firestore_doc_not_found(self):
         with patch('src.controllers.downloads.Response') as response_mock:
-            with patch.object(DownloadsCountFirestoreRepository, 'get') as get_downloads_count_mock:
-                get_downloads_count_mock.side_effect = DocumentNotFoundException()
+             with patch('src.controllers.downloads.DownloadsCountFirestoreRepository') as downloads_count_class_mock:
+                downloads_count_class_mock.side_effect = DocumentNotFoundException()
 
                 DownloadsController.get()
 
@@ -33,8 +35,8 @@ class TestGetDownloadsCountController(TestCase):
 
     def test_should_return_generic_error(self):
         with patch('src.controllers.downloads.Response') as response_mock:
-            with patch.object(DownloadsCountFirestoreRepository, 'get') as get_downloads_count_mock:
-                get_downloads_count_mock.side_effect = Exception('error')
+            with patch('src.controllers.downloads.DownloadsCountFirestoreRepository') as downloads_count_class_mock:
+                downloads_count_class_mock.side_effect = Exception('error')
 
                 DownloadsController.get()
 
