@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 from unittest.mock import patch, MagicMock
-from entities.download_log import DownloadLog
+from src.entities.download_log import DownloadLog
 from src.errors.firestore.document_not_found_exception import DocumentNotFoundException
 from src.repositories.Firestore.download_logs_firestore_repository import DownloadLogsFirestoreRepository
 from tests.__mocks__.firestore_client_mock import FirestoreClientMock
