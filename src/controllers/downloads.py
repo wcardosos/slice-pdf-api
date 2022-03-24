@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 from fastapi import Response
-from entities.download_log import DownloadLog
+from src.entities.download_log import DownloadLog
 from src.repositories.Firestore.downloads_count_firestore_repository import (
     DownloadsCountFirestoreRepository
 )
