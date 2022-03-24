@@ -1,10 +1,19 @@
 from fastapi import FastAPI, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from src.controllers.downloads import DownloadsController
 from src.controllers.health_check import HealthCheckController
 from src.controllers.slice import SliceController
 from src.models.download_log import DownloadLogModel
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post('/slice')
