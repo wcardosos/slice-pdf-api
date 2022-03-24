@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile
 from src.controllers.downloads import DownloadsController
 from src.controllers.health_check import HealthCheckController
 from src.controllers.slice import SliceController
-
+from src.models.download_log import DownloadLogModel
 
 app = FastAPI()
 
@@ -21,6 +21,14 @@ def get_downloads_count():
         Get downloads count
     '''
     return DownloadsController.get()
+
+
+@app.post('/downloads')
+def post_download_log(log: DownloadLogModel):
+    '''
+        Create a new download log
+    '''
+    return DownloadsController.post(log.pdf_file)
 
 
 @app.put('/downloads')

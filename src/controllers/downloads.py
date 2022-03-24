@@ -1,10 +1,12 @@
 import json
+from datetime import datetime
 from fastapi import Response
-from src.errors.firestore.document_not_found_exception import (
-    DocumentNotFoundException
-)
+from entities.download_log import DownloadLog
 from src.repositories.Firestore.downloads_count_firestore_repository import (
     DownloadsCountFirestoreRepository
+)
+from src.repositories.Firestore.download_logs_firestore_repository import (
+    DownloadLogsFirestoreRepository
 )
 
 
@@ -18,17 +20,33 @@ class DownloadsController:
             Responsible method to return the downloads count.
         '''
         try:
-            downloads_count_repository = DownloadsCountFirestoreRepository()
-            downloads_count = downloads_count_repository.get()
+            download_logs_repository = DownloadLogsFirestoreRepository()
+            downloads_count = download_logs_repository.get_downloads_count()
 
             return Response(
                 content=json.dumps({'count': downloads_count}),
                 status_code=200
             )
-        except DocumentNotFoundException:
+        except Exception as error:  # pylint: disable=(broad-except)
             return Response(
-                content=json.dumps({'error': 'The downloads count not found'}),
+                content=json.dumps({'error': str(error)}),
                 status_code=500
+            )
+
+    @staticmethod
+    def post(pdf_file: str):
+        '''
+            Responsible to add download logs
+        '''
+        try:
+            timestamp = datetime.now()
+            download_log = DownloadLog(pdf_file, timestamp)
+            download_logs_repository = DownloadLogsFirestoreRepository()
+            download_logs_repository.add_log(download_log)
+
+            return Response(
+                content=json.dumps({}),
+                status_code=200
             )
         except Exception as error:  # pylint: disable=(broad-except)
             return Response(
