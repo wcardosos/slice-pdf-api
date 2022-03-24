@@ -1,6 +1,6 @@
 import os
 from typing import Any
-from src.entities.DownloadLog import DownloadLog
+from src.entities.download_log import DownloadLog
 from src.errors.firestore.document_not_found_exception import (
     DocumentNotFoundException
 )
