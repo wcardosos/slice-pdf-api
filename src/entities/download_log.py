@@ -14,6 +14,9 @@ class DownloadLog:
         self.timestamp = timestamp
 
     def to_dict(self) -> dict:
+        '''
+            Returns the download log data as a dict.
+        '''
         return {
             'pdf_file': self.pdf_file,
             'timestamp': self.timestamp

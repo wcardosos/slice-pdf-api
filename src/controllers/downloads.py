@@ -9,6 +9,7 @@ from src.repositories.Firestore.download_logs_firestore_repository import (
     DownloadLogsFirestoreRepository
 )
 
+
 class DownloadsController:
     '''
         Downloads controller.
@@ -31,7 +32,7 @@ class DownloadsController:
                 content=json.dumps({'error': str(error)}),
                 status_code=500
             )
-    
+
     @staticmethod
     def post(pdf_file: str):
         '''

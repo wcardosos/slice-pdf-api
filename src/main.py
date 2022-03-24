@@ -1,6 +1,4 @@
-from datetime import datetime
 from fastapi import FastAPI, UploadFile
-from entities.download_log import DownloadLog
 from src.controllers.downloads import DownloadsController
 from src.controllers.health_check import HealthCheckController
 from src.controllers.slice import SliceController
