@@ -3,16 +3,15 @@ from unittest import TestCase, main
 from unittest.mock import patch, MagicMock
 from src.controllers.downloads import DownloadsController
 from src.errors.firestore.document_not_found_exception import DocumentNotFoundException
-from src.repositories.Firestore.downloads_count_firestore_repository import DownloadsCountFirestoreRepository
 
 
 class TestGetDownloadsCountController(TestCase):
     def test_should_get_downloads_count(self):
         with patch('src.controllers.downloads.Response') as response_mock:
-            with patch('src.controllers.downloads.DownloadsCountFirestoreRepository') as downloads_count_class_mock:
-                downloads_count_mock = MagicMock()
-                downloads_count_mock.get.return_value = 1
-                downloads_count_class_mock.return_value = downloads_count_mock
+            with patch('src.controllers.downloads.DownloadLogsFirestoreRepository') as download_logs_class_mock:
+                download_logs_mock = MagicMock()
+                download_logs_mock.get_downloads_count.return_value = 1
+                download_logs_class_mock.return_value = download_logs_mock
 
                 DownloadsController.get()
 
@@ -21,22 +20,10 @@ class TestGetDownloadsCountController(TestCase):
                     status_code=200
                 )
 
-    def test_should_return_error_message_when_firestore_doc_not_found(self):
-        with patch('src.controllers.downloads.Response') as response_mock:
-             with patch('src.controllers.downloads.DownloadsCountFirestoreRepository') as downloads_count_class_mock:
-                downloads_count_class_mock.side_effect = DocumentNotFoundException()
-
-                DownloadsController.get()
-
-                response_mock.assert_called_once_with(
-                    content=json.dumps({ 'error': 'The downloads count not found' }),
-                    status_code=500
-                )
-
     def test_should_return_generic_error(self):
         with patch('src.controllers.downloads.Response') as response_mock:
-            with patch('src.controllers.downloads.DownloadsCountFirestoreRepository') as downloads_count_class_mock:
-                downloads_count_class_mock.side_effect = Exception('error')
+            with patch('src.controllers.downloads.DownloadLogsFirestoreRepository') as download_logs_class_mock:
+                download_logs_class_mock.side_effect = Exception('error')
 
                 DownloadsController.get()
 
