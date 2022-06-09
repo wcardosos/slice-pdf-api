@@ -2,8 +2,6 @@ import json
 from unittest import TestCase, main
 from unittest.mock import patch, MagicMock
 from src.controllers.downloads import DownloadsController
-from src.errors.firestore.document_not_found_exception import DocumentNotFoundException
-from src.repositories.Firestore.downloads_count_firestore_repository import DownloadsCountFirestoreRepository
 
 
 class TestPutDownloadsCountController(TestCase):
